@@ -1,1 +1,11 @@
 Lab1 Feedback.
+
+97 
+-3 It appears like you did not tag your git repository.
+
+Your repository had object files and an executable. It should only have source.
+
+Rather than listing each whitespace character separately, you could use the rule:
+
+[ \t\n\b]
+
