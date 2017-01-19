@@ -15,56 +15,83 @@
 #include "parse.h"
 #include "utils.h"
 #include "tokens.h"
-using std::endl;
 using std::cout;
+using std::endl;
 //*******************************************
 // Find a PROG non-terminal
 bool FindPROG()
 {
-	if(FindSTMTS() && yylex() != END){
-		return true;
-	}
-	else{
+	if(!FindSTMTS() && yylex() != END)
+	{ //if doesnt find program and isnt at end then return false
 		return false;
+	}
+	else{ //if at end of file then return true that it found program
+		AdvanceToken();
+		return true;
 	}
 }
 bool FindSTMTS()
 {
-	if(FindSTMT() && FindSTMTS())
+	while(PeekToken() != END && FindSTMT())//loop until its at the end 
 	{
-		return true;
+		
 	}
-	return true;
+	return true;//at end return true to FindPROG
 }
 bool FindSTMT()
 {
-	if(FindEXPR())
+	if(FindEXPR())//if its an EXPR then dive in
 	{
-		if(PeekToken()  == ';') {
-		AdvanceToken();
-		cout << "Found a statement" << endl;
-		return true;
+		if(PeekToken()  == ';') 
+		{
+			AdvanceToken();//advance passed the semi colon
+			cout << "Found a statement" << endl;
+			return true;
 		}
-		else {
-			Error("';'");
-			while(PeekToken() != ';'){
-				AdvanceToken();
+		else 
+		{
+			Error("';'");//show error that it found another semi-colon
+			while(PeekToken() != 0 && PeekToken() != ';' && PeekToken() != END)
+			{
+				AdvanceToken();//advance until its not trash
+			}
+			if(PeekToken() == ';')
+			{
+				AdvanceToken();//advance if its another semi-colon
+			}
+			else if(PeekToken() == 0)
+			{
+				return false;//return false if end of file
 			}
 			return true;
 		}
 	}
-	else{
-		return false;
+	else
+	{
+			while(PeekToken() != 0 && PeekToken() != ';' && PeekToken() != END)
+			{
+                                AdvanceToken();
+                        }
+                        if(PeekToken() == ';')
+                        {
+                                AdvanceToken();
+                        }
+                        else if(PeekToken() == 0)
+                        {
+                                return false;
+                        }
+                        return true;
 	}
+	return true;//return true if its null
 }
 bool FindEXPR()
 {
-	if(PeekToken() == '(')
+	if(PeekToken() == '(')//if its a left bracket because its expected, then dive in
 	{
-		AdvanceToken();
-		if (!FindEXPR()) return false;
+		AdvanceToken();//next token
+		if (!FindEXPR()) return false;//if EXPR isnt found then return false
 		
-		if(PeekToken() == ')')
+		if(PeekToken() == ')')//if next token is a closed paren then advcance token
 		{
 			AdvanceToken();
 		}
@@ -77,7 +104,7 @@ bool FindEXPR()
 
 		return true; 
 	}
-	else if(FindTERM())
+	else if(FindTERM())//if its a term then return true
 	{
 		 return true;
 	}
@@ -91,25 +118,25 @@ bool FindEXPR_P()
 {
 	if(FindPLUSOP())
 	{
-		if(PeekToken() == '(')
+		if(PeekToken() == '(')//if parent then dive in
 		{
 			AdvanceToken();
 		}
 		else
 		{	
-			Error("'(' ");
+			Error("'('");
 			return false;
 		}
 		
-		if(!FindEXPR()) return false;
+		if(!FindEXPR()) return false;//if EXPR isnt found then its bad
 		
-		if(PeekToken() == ')')
+		if(PeekToken() == ')')//we expect right paren and then advance
 		{
 			AdvanceToken();
 		}
 		else
 		{
-			Error("')' ");
+			Error("')'");
 			return false;
 		}
 		if(!FindEXPR_P()) return false;
@@ -118,9 +145,9 @@ bool FindEXPR_P()
 }
 bool FindPLUSOP()
 {
-	if (PeekToken() == PLUSOP)
+	if (PeekToken() == '+' || PeekToken() == '-')//expect the plus operation or minus op
 	{
-		AdvanceToken();
+		AdvanceToken();//advance and return it was found
 		return true;
 	}
 	else
@@ -130,9 +157,9 @@ bool FindPLUSOP()
 }
 bool FindTERM()
 {
-	if(PeekToken() == '[')
+	if(PeekToken() == '[')//the left square bracket is expected
 	{
-		AdvanceToken();
+		AdvanceToken();//advance
 
 		if (!FindEXPR()) return false;
 			
@@ -149,7 +176,8 @@ bool FindTERM()
 		
 		return true;
 	}
-	else if(PeekToken() == NUM){
+	else if(PeekToken() == NUM)
+	{//if its a number, then advance and return true that it was found
 		AdvanceToken();
 		return true;
 	}
@@ -168,7 +196,7 @@ bool FindTERM_P()
 		}
 		else
 		{
-			Error("'[' ");
+			Error("'['");
 			return false;
 		}
 		if(!FindEXPR()) return false;
@@ -184,12 +212,12 @@ bool FindTERM_P()
 		}
 		if(!FindTERM_P()) return false;
 	}
-	return true;
+	return true;//return true for null/lambda
 
 }
 bool FindTIMESOP()
 {
-	if(PeekToken() == TIMESOP)
+	if(PeekToken() == '*' || PeekToken() == '/')
 	{
 		AdvanceToken();
 		return true;

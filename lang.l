@@ -12,8 +12,8 @@
 
 #include "tokens.h"
 
-//#define DO_RETURN(a) return (a)
-#define DO_RETURN(a) return Return(a)
+#define DO_RETURN(a) return (a)
+//#define DO_RETURN(a) return Return(a)
 int Return(int val);
 
 %}
@@ -47,8 +47,10 @@ period          ['.']
 
 "%"			    DO_RETURN('%');
 
-"+"|"-"			    DO_RETURN(PLUSOP);
-"*"|"/"			    DO_RETURN(TIMESOP);
+"+"			    DO_RETURN('+');
+"-"			    DO_RETURN('-');
+"*"			    DO_RETURN('*');
+"/"			    DO_RETURN('/');
 .			    DO_RETURN(JUNK_TOKEN);
 %%
 
