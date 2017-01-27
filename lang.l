@@ -9,11 +9,16 @@
 //
 // Date: Nov. 23, 2015
 //
-
+#include <iostream>
+using std::cout;
+using std::endl;
 #include "tokens.h"
+#include "SymbolTable.h"
+#include "cSymbol.h"
+#include "lex.h"
 
-#define DO_RETURN(a) return (a)
-//#define DO_RETURN(a) return Return(a)
+//#define DO_RETURN(a) return (a)
+#define DO_RETURN(a) return Return(a)
 int Return(int val);
 
 %}
@@ -26,7 +31,6 @@ int Return(int val);
 
     /* definitions go here. period is an example. */
 period          ['.']
-
 %%
 
     // token definitions go here. "if" is an example.
@@ -40,12 +44,14 @@ period          ['.']
 "char"			    DO_RETURN(CHAR);
 "struct"		    DO_RETURN(STRUCT);
 "return"		    DO_RETURN(RETURN);
-[a-zA-Z_]+[0-9a-zA-Z_]*	    DO_RETURN(IDENTIFIER);
+[a-zA-Z_]+[0-9a-zA-Z_]*	    {
+				//DO_RETURN(yytext[0]);
+                                yylval.symbol = g_SymbolTable.Insert(yytext);
+                                return IDENTIFIER;
+                            }
 "."			    DO_RETURN('.');
 "("			    DO_RETURN('(');
 ")"			    DO_RETURN(')');
-"{"			    DO_RETURN('{');
-"}"			    DO_RETURN('}');
 "["			    DO_RETURN('[');
 "]"			    DO_RETURN(']');
 ","			    DO_RETURN(',');
@@ -62,10 +68,19 @@ period          ['.']
 [0-9]+			    DO_RETURN(INT_VAL);
 [0-9]+"."[0-9]+		    DO_RETURN(FLOAT_VAL);
 "//".*			    ;
-" "			    ;
-"\t"			    ;
-"\n"			    ;
-"\s"			    ;
+[ \t\n\b]		    ;
+
+"{"                         {
+                                DO_RETURN(yytext[0]);
+				g_SymbolTable.IncreaseScope();
+				return yytext[0];
+                            }
+"}"                         {
+				DO_RETURN(yytext[0]);
+				g_SymbolTable.DecreaseScope();
+                                return yytext[0];
+                            }
+
 .			    DO_RETURN(JUNK_TOKEN);
 %%
 
