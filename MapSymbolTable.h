@@ -1,5 +1,16 @@
 #pragma once
-
+//**************************************
+////// MapSymbolTable.h
+//////
+////// map for the symbol table
+//////
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
+//////
+////// Date: Jan, 28 2017
+//////
+////
+//
 #include <iostream>
 #include "cSymbol.h"
 using namespace std;

@@ -17,8 +17,8 @@ using std::endl;
 #include "cSymbol.h"
 #include "lex.h"
 
-//#define DO_RETURN(a) return (a)
-#define DO_RETURN(a) return Return(a)
+#define DO_RETURN(a) return (a)
+//#define DO_RETURN(a) return Return(a)
 int Return(int val);
 
 %}
@@ -44,8 +44,16 @@ period          ['.']
 "char"			    DO_RETURN(CHAR);
 "struct"		    DO_RETURN(STRUCT);
 "return"		    DO_RETURN(RETURN);
+"{"                         {
+                                g_SymbolTable.IncreaseScope();
+                                return yytext[0];
+                            }
+"}"                         {
+                                g_SymbolTable.DecreaseScope();
+                                return yytext[0];
+                            }
+
 [a-zA-Z_]+[0-9a-zA-Z_]*	    {
-				//DO_RETURN(yytext[0]);
                                 yylval.symbol = g_SymbolTable.Insert(yytext);
                                 return IDENTIFIER;
                             }
@@ -69,17 +77,6 @@ period          ['.']
 [0-9]+"."[0-9]+		    DO_RETURN(FLOAT_VAL);
 "//".*			    ;
 [ \t\n\b]		    ;
-
-"{"                         {
-                                DO_RETURN(yytext[0]);
-				g_SymbolTable.IncreaseScope();
-				return yytext[0];
-                            }
-"}"                         {
-				DO_RETURN(yytext[0]);
-				g_SymbolTable.DecreaseScope();
-                                return yytext[0];
-                            }
 
 .			    DO_RETURN(JUNK_TOKEN);
 %%
