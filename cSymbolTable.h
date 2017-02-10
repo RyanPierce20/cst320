@@ -34,7 +34,7 @@ class cSymbolTable
         cSymbolTable()
         { 
             IncreaseScope();
-	
+	    //insert types of declarations in table so the compiler knows its built in language
 	    cSymbol * char_sym = new cSymbol("char");
 	    char_sym->SetType();
             Insert(char_sym);

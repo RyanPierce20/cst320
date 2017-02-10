@@ -1,10 +1,17 @@
 #pragma once
-//
-// Ryan Pierce
-// ryan.pierce@oit.edu
-//
-//
 
+//**************************************
+////// cVarDeclNode.h
+//////
+////// Makes an ast node for a variable declartion
+//////
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
+//////
+////// Date: February 9 2017
+//////
+////
+//
 #include "cAstNode.h"
 #include "cDeclNode.h"
 #include "cSymbol.h"

@@ -1,6 +1,18 @@
 #pragma once
 
-
+//**************************************
+////// cBinadryExprNode.h
+//////
+////// Makes sure that you can make a binary expression node
+////// with the compiler
+//////
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
+//////
+////// Date: February 9 2017
+//////
+////
+//
 #include "cAstNode.h"
 #include "cExprNode.h"
 
@@ -14,13 +26,6 @@ class cBinaryExprNode : public cExprNode
 			AddChild(Right);
 		}
 
-	//	virtual string AttributesToString()
-	//	{
-			//return " value=\"" + std::to_string() + "\"";
-			//return "(EXPR: " + Left->toString() + ' ' + operation->toString() +,
-			//	 ' ' Right->toString() + ')';
-			//return "";
-	//	}
 		virtual string NodeType() { return string("expr"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
 

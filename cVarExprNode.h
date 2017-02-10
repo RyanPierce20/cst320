@@ -1,17 +1,17 @@
 #pragma once
 
 //**************************************
-////// cIntExprNode.h
+////// cVarExprNode.h
 //////
-////// Defines an AST node for an integer constant (literals).
+////// Defines an AST node for a variable expresion.
 //////
-////// Inherits from cExprNode so that integer constants can be used anywhere
+////// Inherits from cExprNode so that variable expressions can be used anywhere
 ////// expressions are used.
 //////
-////// Author: Phil Howard
-////// phil.howard@oit.edu
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
 //////
-////// Date: Jan. 18, 2015
+////// Date: February, 9, 2017
 //////
 ////
 #include "cAstNode.h"

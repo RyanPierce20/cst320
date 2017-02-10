@@ -38,12 +38,12 @@ class cSymbol : public cAstNode
             result += "\" name=\"" + m_name + "\"";
             return result;
         }
-	
+	//get bool type	
 	bool GetType()
 	{
 		return checkType;
 	}
-
+	//only called when its already inserted or not
 	void SetType( )
 	{
 		checkType = true;

@@ -1,12 +1,17 @@
 #pragma once
 
-//
-//
-//
-//
-//
-//
-//
+//**************************************
+////// cFuncDeclNode.h
+//////
+////// Make an ast node for any functions and 
+//     make it inherit from DeclNode for any declarations
+//////
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
+//////
+////// Date: February 9 2017
+//////
+////
 //
 
 #include "cAstNode.h"
@@ -31,7 +36,8 @@ class cFuncDeclNode : public cDeclNode
                         AddChild(name);
                  
                 }
-
+		//insert any kind of node for thr ast so we dont have to make multiple functions to insert 
+		//different types of nodes
 		void Insert(cAstNode * anything)
 		{
 			AddChild(anything);

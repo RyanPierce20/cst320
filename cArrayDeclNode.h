@@ -1,17 +1,17 @@
 #pragma once
 
+//**************************************
+//// cArrayDeclNode.h
+////
+//// Makes sure that you can make arrays 
+//// with the compiler
+////
+//// Author: Ryan Pierce
+//// ryan.pierce@oit.edu
+////
+//// Date: February 9 2017
+////
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 #include "cAstNode.h"
 #include "cDeclNode.h"
 #include "cSymbol.h"
@@ -24,7 +24,7 @@ class cArrayDeclNode : public cDeclNode
 			name->SetType();
 			value = count;
 			AddChild(type);
-		
+			//check if its already in scope and if is then make new and insert that else insert passed in
 			if(g_SymbolTable.Find(name->GetName()))
 			{
 				name = new cSymbol(name->GetName());
@@ -33,7 +33,7 @@ class cArrayDeclNode : public cDeclNode
 			
 			AddChild(name);
 		}
-
+		//output the correct string that output wants
 		virtual string AttributesToString()
 		{
 			string result(" count='");

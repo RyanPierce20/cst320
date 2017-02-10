@@ -1,5 +1,18 @@
 #pragma once
 
+//**************************************
+////// cFuncExprNode.h
+//////
+////// Makes an ast node of function expressions
+//     inherits from all expressions
+//////
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
+//////
+////// Date: February 9 2017
+//////
+////
+//
 #include "cAstNode.h"
 #include "cExprNode.h"
 #include "cParamsNode.h"
@@ -15,7 +28,7 @@ class cFuncExprNode : public cExprNode
                         AddChild(type);
                         AddChild(name);
                 }
-
+		//inserts any param list for any function
 		void Insert(cParamListNode * list)
 		{
 			AddChild(list);

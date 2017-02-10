@@ -1,16 +1,18 @@
 #pragma once
 
+//**************************************
+////// cAssignNode.h
+//////
+////// Makes sure that you can make assignments
+////// with the compiler
+//////
+////// Author: Ryan Pierce
+////// ryan.pierce@oit.edu
+//////
+////// Date: February 9 2017
+//////
+////
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 #include "cAstNode.h"
 #include "cStmtNode.h"
 #include "cExprNode.h"

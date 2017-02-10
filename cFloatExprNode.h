@@ -1,16 +1,16 @@
 #pragma once
 //**************************************
-//// cIntExprNode.h
+//// cFloatExprNode.h
 ////
 //// Defines an AST node for an integer constant (literals).
 ////
 //// Inherits from cExprNode so that integer constants can be used anywhere 
 //// expressions are used.
 ////
-//// Author: Phil Howard 
-//// phil.howard@oit.edu
+//// Author: Ryan Pierce 
+//// ryan.pierce@oit.edu
 ////
-//// Date: Jan. 18, 2015
+//// Date: February 9 2017
 ////
 //
 #include "cAstNode.h"
@@ -19,7 +19,7 @@
 class cFloatExprNode : public cExprNode
 {
 	public:
-	
+		//output passed in float value
 		cFloatExprNode(double value) : cExprNode()
 		{
 			m_value = value;
@@ -33,6 +33,7 @@ class cFloatExprNode : public cExprNode
 	        virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
 
 	protected:
+		//made it a double because instructor prefered double over float
 		double m_value;
 }; 
 
