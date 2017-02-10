@@ -31,3 +31,8 @@
 #include "cWhileNode.h"
 #include "cAssignNode.h"
 #include "cStructDeclNode.h"
+#include "cFuncDeclNode.h"
+#include "cFuncExprNode.h"
+#include "cParamsNode.h"
+#include "cParamListNode.h"
+#include "cArrayDeclNode.h"
