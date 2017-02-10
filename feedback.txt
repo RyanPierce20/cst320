@@ -1,4 +1,4 @@
-Lab4 Feedback.
+Lab3 Feedback.
 
-
+-15 You did not implement either the local or global lookup functions required by the write-up.
 
