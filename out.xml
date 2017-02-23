@@ -1,10 +1,2 @@
-<program><block><decls><var_decl><sym id="2" name="int" decl="2"/><sym id="4" name="aa" decl="4"/></var_decl>
-<var_decl><sym id="2" name="int" decl="2"/><sym id="5" name="bb" decl="5"/></var_decl>
-<var_decl><sym id="3" name="float" decl="3"/><sym id="6" name="aa" decl="6"/></var_decl>
-</decls>
-<stmts><assign><varref><sym id="5" name="bb" decl="5"/></varref>
-<int value="1"/></assign>
-</stmts>
-</block>
-</program>
-
+ERROR: Symbol aa already defined in current scope on line 4
+1 Errors in compile
