@@ -26,10 +26,17 @@ class cVarDeclNode : public cDeclNode
 			if(g_SymbolTable.Find(name->GetName()))
 			{
 				name = new cSymbol(name->GetName());
+				g_SymbolTable.Insert(name);
+				name->SetDecl(this);
+			}
+			else
+			{
+				g_SymbolTable.Insert(name);
+                                name->SetDecl(this);
 			}
 						
-			g_SymbolTable.Insert(name);
-	
+			//g_SymbolTable.Insert(name);
+				
 			AddChild(name);
 		}
 		
@@ -46,6 +53,7 @@ class cVarDeclNode : public cDeclNode
 			//return the decl associated with the type
 			return (static_cast<cSymbol *>(GetChild(0)))->GetDecl();
 		}
-		virtual bool IsType() { return true; }	
+		
+		virtual bool IsVar() { return true; }	
 	protected:
 };

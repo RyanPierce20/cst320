@@ -20,7 +20,7 @@ class cParamsNode : public cDeclsNode
 	public:
 		cParamsNode(cDeclNode * multiple) : cDeclsNode(multiple)
 		{
-			AddChild(multiple);
+		//	AddChild(multiple);
 		}
 		//an insert for params for only declarations
 		void Insert(cDeclNode * multiple)
