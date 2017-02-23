@@ -35,6 +35,17 @@ class cVarDeclNode : public cDeclNode
 		
 		virtual string NodeType() { return string("var_decl"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
-
+		
+		virtual cSymbol * GetName()
+		{
+			//return the decl associated with the type
+			return static_cast<cSymbol *>(GetChild(1));
+		}
+		virtual cDeclNode * GetType()
+		{
+			//return the decl associated with the type
+			return (static_cast<cSymbol *>(GetChild(0)))->GetDecl();
+		}
+		virtual bool IsType() { return true; }	
 	protected:
 };

@@ -22,6 +22,7 @@ using std::list;
 using std::pair;
 
 #include "cSymbol.h"
+#include "cBaseTypeNode.h"
 
 class cSymbolTable
 {
@@ -31,23 +32,26 @@ class cSymbolTable
 
         // Increasing the scope must create a symbol table, so we call
         // that function to do the actual work of creating the object
-        cSymbolTable()
-        { 
-            IncreaseScope();
+        cSymbolTable();
+        //{ 
+         //   IncreaseScope();
 	    //insert types of declarations in table so the compiler knows its built in language
-	    cSymbol * char_sym = new cSymbol("char");
-	    char_sym->SetType();
-            Insert(char_sym);
+	  //  cSymbol * char_sym = new cSymbol("char");
+	    //char_sym->SetType();
+	    //char_sym->SetDecl(new cBaseTypeNode("char", 1, false));
+            //Insert(char_sym);
 
-            cSymbol * int_sym = new cSymbol("int");
-            int_sym->SetType();
-	    Insert(int_sym);
+            //cSymbol * int_sym = new cSymbol("int");
+            //int_sym->SetType();
+	    //int_sym->SetDecl(new cBaseTypeNode("int", 4, false));
+	    //Insert(int_sym);
 
-            cSymbol * float_sym = new cSymbol("float");
-	    float_sym->SetType();
-            Insert(float_sym);
+            //cSymbol * float_sym = new cSymbol("float");
+	    //float_sym->SetType();
+	    //float_sym->SetDecl(new cBaseTypeNode("float", 8, true));
+            ///Insert(float_sym);
 
-        }
+       // }//
 
         // Increase the scope: add a level to the nested symbol table
         // Return value is the newly created scope

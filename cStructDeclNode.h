@@ -28,16 +28,34 @@ class cStructDeclNode : public cDeclNode
 			if(g_SymbolTable.Find(name->GetName()))
 			{
 				name = new cSymbol(name->GetName());
+				g_SymbolTable.Insert(name);
+				name->SetDecl(this);
+			}
+			else
+			{
+				g_SymbolTable.Insert(name);
+				name->SetDecl(this);
 			}
 			
-			g_SymbolTable.Insert(name);
+			//g_SymbolTable.Insert(name);
 			//set type so we know which type to DO_RETURN
-			name->SetType();	
+			//name->SetType();	
 			AddChild(name);
 		}
 	
 		virtual string NodeType() { return string("struct_decl"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
-
+		
+		virtual cSymbol * GetName()
+		{
+			return static_cast<cSymbol *>(GetChild(1));
+		}
+		virtual cDeclNode * GetType()
+		{
+			return (static_cast<cSymbol *>(GetChild(0)))->GetDecl();
+		}
+		
+		virtual bool IsType() { return true; }
+		virtual bool IsStruct() { return true; }
 	protected:
 };

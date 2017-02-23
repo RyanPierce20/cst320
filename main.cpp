@@ -29,6 +29,8 @@ int main(int argc, char **argv)
     
 //    g_SymbolTable.InsertSym();   
  
+//    cBaseTypeNode *type = new cBaseTypeNode("stuff", 1, false);
+
     const char *outfile_name;
     int result = 0;
     std::streambuf *cout_buf = std::cout.rdbuf();

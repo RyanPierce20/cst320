@@ -77,7 +77,7 @@ whitespace      '[\t\n\r ]'
                               //    g_SymbolTable.Insert(yylval.symbol);
                               }
 			      //if(type is true) return typeID else return identifier
-			      if (yylval.symbol->GetType())
+			      if (yylval.symbol->GetDecl() != nullptr && yylval.symbol->GetDecl()->IsType())
 			      {
 			  	  DO_RETURN(TYPE_ID);
 			      }

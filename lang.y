@@ -218,3 +218,10 @@ int yyerror(const char *msg)
 
     return 0;
 }
+
+void SemanticError(std::string error)
+{
+	std::cout << "ERROR: " << error << " on line "
+		<< yylineno << "\n";
+	yynerrs++;
+}

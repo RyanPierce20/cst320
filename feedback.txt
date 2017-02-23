@@ -1,3 +1,11 @@
+Lab 4 Feedback
+
+147
+
+-3 Your implementation of cFuncDeclNode will make it difficult to write getters for the various pieces. For example, where are the statements? In m_children[2], [3], or [4]?
+
+****************************************
+
 Lab3 Feedback.
 
 -15 You did not implement either the local or global lookup functions required by the write-up.

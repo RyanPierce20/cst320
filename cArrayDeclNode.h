@@ -21,15 +21,22 @@ class cArrayDeclNode : public cDeclNode
 	public:
 		cArrayDeclNode(cSymbol * type, int count, cSymbol * name) : cDeclNode()
 		{
-			name->SetType();
+			//name->SetType();
 			value = count;
 			AddChild(type);
 			//check if its already in scope and if is then make new and insert that else insert passed in
 			if(g_SymbolTable.Find(name->GetName()))
 			{
 				name = new cSymbol(name->GetName());
+				g_SymbolTable.Insert(name);
+				name->SetDecl(this);
 			}
-			g_SymbolTable.Insert(name);
+			else
+			{
+				g_SymbolTable.Insert(name);
+				name->SetDecl(this);
+			}
+			//g_SymbolTable.Insert(name);
 			
 			AddChild(name);
 		}
@@ -44,7 +51,18 @@ class cArrayDeclNode : public cDeclNode
 
 		virtual string NodeType() { return string("array_decl"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
+	
+		virtual cSymbol * GetName()	
+		{
+			return static_cast<cSymbol *>(GetChild(1));			
+		}
+		virtual cDeclNode * GetType()
+		{
+			return this;	
+		}
 
+		virtual bool IsType() { return true; }
+		virtual bool IsArray() { return true; }
 	protected:
 	int value;
 };

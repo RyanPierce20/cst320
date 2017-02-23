@@ -15,10 +15,10 @@
 #include "cAstNode.h"
 #include "cDeclNode.h"
 
-class cParamsNode : public cDeclNode
+class cParamsNode : public cDeclsNode
 {
 	public:
-		cParamsNode(cDeclNode * multiple) : cDeclNode()
+		cParamsNode(cDeclNode * multiple) : cDeclsNode(multiple)
 		{
 			AddChild(multiple);
 		}
@@ -30,6 +30,6 @@ class cParamsNode : public cDeclNode
 	
 		virtual string NodeType() { return string("args"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
-
+		
 	protected:
 };
