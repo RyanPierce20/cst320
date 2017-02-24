@@ -25,17 +25,32 @@ class cFuncDeclNode : public cDeclNode
 	public:
 		cFuncDeclNode(cSymbol * type, cSymbol * name)
                 {
+			m_name = name;
+			m_returnType = type;
+			m_params = nullptr;
+			m_other = nullptr;
+			m_isDefined = false;
+
+			//cSymbol * sym = g_SymbolTable.FindLocal(name->GetName());
+
 			if(g_SymbolTable.Find(name->GetName()))
 			{
 				if(g_SymbolTable.FindLocal(name->GetName()))
 				{
+					cFuncDeclNode *copy = static_cast<cFuncDeclNode *>(g_SymbolTable.FindLocal(name->GetName())->GetDecl());
+                                                m_other = copy;
+
 					if(!g_SymbolTable.FindLocal(name->GetName())->GetDecl()->IsFunc())
 					{
 						SemanticError(name->GetName() + " previously declared as other than a function");
 					}
 					else
 					{
-						SemanticError(name->GetName() + " previously declared with different return type");
+						if(copy->GetType() != this->GetType())
+						{						
+							SemanticError(name->GetName() + " previously declared with different return type");
+						}
+						
 					}	
 				}
 				name = new cSymbol(name->GetName());
@@ -61,6 +76,13 @@ class cFuncDeclNode : public cDeclNode
 			AddChild(anything);
 		}
 
+		void Insertparams(cParamsNode * params)
+		{
+			//if((m_other != nullptr) && (m_other->GetParams() != nullptr) && (params != nullptr))
+			//{
+						
+			//}
+		}
 
 		virtual string NodeType() { return string("func"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
@@ -72,10 +94,14 @@ class cFuncDeclNode : public cDeclNode
 
 		virtual cDeclNode * GetType()
 		{
-			return (static_cast<cSymbol *>(GetChild(0)))->GetDecl();
+			return m_returnType->GetDecl();
 		}
 		virtual bool IsFunc() { return true; }
 	protected:
-	
+	cSymbol *m_name;
+	cSymbol *m_returnType;
+	cParamsNode *m_params;
+	cFuncDeclNode *m_other;
+	bool m_isDefined;
 };
 	
