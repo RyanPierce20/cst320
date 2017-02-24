@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     // fixup cout so it redirects to output
     std::cout.rdbuf(output.rdbuf());
 
-    g_SymbolTable.InitRootTable();
+    //g_SymbolTable.InitRootTable();
    
     result = yyparse();
     if (yyast_root != nullptr)

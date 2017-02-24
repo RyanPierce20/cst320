@@ -33,6 +33,11 @@ class cFuncExprNode : public cExprNode
 		{
 			AddChild(list);
 		}
+
+		virtual cDeclNode * GetType()
+		{
+			return nullptr;
+		}
 	
 		virtual string NodeType() { return string("funcCall"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }

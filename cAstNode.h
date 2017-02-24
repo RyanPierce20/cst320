@@ -16,7 +16,8 @@ using std::string;
 using std::vector;
 
 #include "cVisitor.h"
-void SemanticError(string error);
+extern int yylineno;
+extern void SemanticError(std::string error);
 class cAstNode
 {
     public:

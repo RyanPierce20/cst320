@@ -35,5 +35,10 @@ class cVarExprNode : public cExprNode
 			AddChild(var);
 		}
 
+		virtual cDeclNode * GetType()
+		{
+			return nullptr;
+		}	
+
 	protected:
 };
