@@ -1,2 +1,5 @@
-ERROR: Symbol aa already defined in current scope on line 4
-1 Errors in compile
+ERROR: foo previously declared with different return type on line 3
+ERROR: bar previously declared with different return type on line 6
+ERROR: stuff previously declared with different return type on line 9
+ERROR: aa previously declared as other than a function on line 12
+4 Errors in compile

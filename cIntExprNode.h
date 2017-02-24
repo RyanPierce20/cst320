@@ -15,6 +15,8 @@
 
 #include "cAstNode.h"
 #include "cExprNode.h"
+#include "cDeclNode.h"
+#include "cSymbolTable.h"
 
 class cIntExprNode : public cExprNode
 {
@@ -25,6 +27,10 @@ class cIntExprNode : public cExprNode
             m_value = value;
         }
 
+	virtual cDeclNode * GetType()
+	{
+		return g_SymbolTable.Find("int")->GetDecl();
+	}
         virtual string AttributesToString() 
         {
             return " value=\"" + std::to_string(m_value) + "\"";

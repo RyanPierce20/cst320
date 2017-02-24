@@ -27,6 +27,17 @@ class cFuncDeclNode : public cDeclNode
                 {
 			if(g_SymbolTable.Find(name->GetName()))
 			{
+				if(g_SymbolTable.FindLocal(name->GetName()))
+				{
+					if(!g_SymbolTable.FindLocal(name->GetName())->GetDecl()->IsFunc())
+					{
+						SemanticError(name->GetName() + " previously declared as other than a function");
+					}
+					else
+					{
+						SemanticError(name->GetName() + " previously declared with different return type");
+					}	
+				}
 				name = new cSymbol(name->GetName());
 				g_SymbolTable.Insert(name);
                                 name->SetDecl(this);
@@ -65,5 +76,6 @@ class cFuncDeclNode : public cDeclNode
 		}
 		virtual bool IsFunc() { return true; }
 	protected:
+	
 };
 	

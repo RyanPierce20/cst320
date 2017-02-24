@@ -1,0 +1,8 @@
+{
+    char aa;
+
+    aa = bb;
+    bb = aa;
+    print(aa);
+}
+

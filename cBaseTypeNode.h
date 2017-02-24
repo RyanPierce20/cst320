@@ -2,7 +2,7 @@
 
 #include "cAstNode.h"
 #include "cDeclNode.h"
-//#include "cSymbolTable.h"
+
 
 class cBaseTypeNode : public cDeclNode
 {

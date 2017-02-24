@@ -7,7 +7,7 @@
 // Author: Phil Howard 
 // phil.howard@oit.edu
 //
-// Date: Jan. 7, 2016
+// Date: Jan. 18, 2016
 //
 
 #include <string>
@@ -16,32 +16,23 @@ using std::string;
 using std::vector;
 
 #include "cVisitor.h"
-void SemanticError(string error);
+
+// should come from include file, but that causes dependency problems
+extern int yylineno;
+
+// called to throw a semantic error
+extern void SemanticError(std::string error);
+
 class cAstNode
 {
     public:
         typedef vector<cAstNode*>::iterator iterator;
 
         cAstNode() 
-	{
-		m_lineNumber = yylineno;
-		m_hasSemanticError = false;
-	}
-		
-	bool HasError()
-	{
-		return m_hasSemanticError;
-	}
-
-	void SetHasError()
-	{
-		m_hasSemanticError = true;
-	}
-	
-	int LineNumber()
-	{
-		return m_lineNumber;
-	}
+        {
+            m_lineNumber = yylineno;
+            m_hasSemanticError = false;
+        }
 
         void AddChild(cAstNode *child)
         {
@@ -59,13 +50,16 @@ class cAstNode
         }
 
         bool HasChildren()      { return !m_children.empty(); }
-
         int NumChildren()       { return (int)m_children.size(); }
+
         cAstNode* GetChild(int child)
         {
             if (child >= (int)m_children.size()) return nullptr;
             return m_children[child];
         }
+
+        void SetHasError() { m_hasSemanticError = true; }
+        bool HasError()    { return m_hasSemanticError; }
 
         // return a string representation of the node
         string ToString() 
@@ -93,13 +87,15 @@ class cAstNode
             return result;
         }
 
+        int LineNumber() { return m_lineNumber; }
+
         virtual string AttributesToString()   { return string(""); }
         virtual string NodeType() = 0; //      { return "AST"; }
         virtual void Visit(cVisitor *visitor) = 0;
 
     protected:
         vector<cAstNode *> m_children;     // list of statements
-	int m_lineNumber;
-	bool m_hasSemanticError;
+        int m_lineNumber;
+        bool m_hasSemanticError;
 };
 
