@@ -69,6 +69,11 @@ class cFuncDeclNode : public cDeclNode
                         AddChild(name);
                  
                 }
+
+		cParamsNode * GetParams()
+		{
+			return m_params;
+		}
 		//insert any kind of node for thr ast so we dont have to make multiple functions to insert 
 		//different types of nodes
 		void Insert(cAstNode * anything)
@@ -76,12 +81,38 @@ class cFuncDeclNode : public cDeclNode
 			AddChild(anything);
 		}
 
-		void Insertparams(cParamsNode * params)
+		void InsertParams(cParamsNode * params)
 		{
-			//if((m_other != nullptr) && (m_other->GetParams() != nullptr) && (params != nullptr))
-			//{
-						
-			//}
+			if((m_other != nullptr) && (m_other->GetParams() != nullptr) && (params != nullptr))
+			{
+				if(m_other->GetParams()->NumChildren() != params->NumChildren())
+				{
+					SemanticError(m_name->GetName() + " previously declared with a different number of parameters");
+				}
+				else
+				{
+					bool flag = false;
+
+					for(int i =0; (i < params->NumChildren()) && (flag == false); i++)
+					{
+						cDeclNode * param = static_cast<cDeclNode *>(params->GetChild(i));
+						cDeclNode * otherParam = static_cast<cDeclNode *>(m_other->GetParams()->GetChild(i));
+
+						if (param->GetType() != otherParam->GetType())
+						{
+							flag = true;
+						}
+					}
+				
+					if(flag == true)
+					{
+						SemanticError(m_name->GetName() + " previously declared with different parameters");
+					}
+				}
+			
+			}
+			AddChild(params);
+			m_params = params;			
 		}
 
 		virtual string NodeType() { return string("func"); }

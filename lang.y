@@ -139,8 +139,9 @@ func_decl:  func_header ';'
 				  g_SymbolTable.DecreaseScope();}
 func_header: func_prefix paramsspec ')'
                                 { $$ = $1;
-				  $$->Insert($2);}
-        |    func_prefix ')'    { $$ = $1;}
+				  $1->InsertParams($2);}
+        |    func_prefix ')'    { $$ = $1;
+				  $1->InsertParams(nullptr);}
 func_prefix: TYPE_ID IDENTIFIER '('
                                 { $$ = new cFuncDeclNode($1, $2);
 				  g_SymbolTable.IncreaseScope();}
