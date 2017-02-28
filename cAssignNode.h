@@ -25,8 +25,17 @@ class cAssignNode : public cStmtNode
 		{
 			AddChild(varExpr);
 			AddChild(expr);
+		}	
+		
+		virtual cVarExprNode * GetVarExpr()
+		{	//get the varExprNode from the assignment
+			return static_cast<cVarExprNode *>(GetChild(0));
 		}
-
+	
+		virtual cExprNode * GetExpr()
+		{	//get the cExprNode so you can see its decl and name
+			return static_cast<cExprNode *>(GetChild(1));
+		}	
 		virtual string NodeType() { return string("assign"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
 

@@ -23,6 +23,7 @@ class cVarExprNode : public cExprNode
 	public:
 		cVarExprNode(cSymbol * val) : cExprNode()
 		{	
+			type = val;	
 			AddChild(val);
 		}
 
@@ -34,11 +35,44 @@ class cVarExprNode : public cExprNode
 		{
 			AddChild(var);
 		}
+	
+		cExprNode * GetArray(int index)
+		{	//get the expressoon of the array
+			index++;
+			return static_cast<cExprNode *>(GetChild(index));
+		}
 
+		virtual cSymbol * GetName()
+		{
+			return static_cast<cSymbol *>(GetChild(0)); 
+		}
+
+
+		virtual bool IsVar() { return true; }		
+	
 		virtual cDeclNode * GetType()
 		{
-			return nullptr;
+ 			cDeclNode * decl = GetName()->GetDecl();
+			cDeclNode * node = nullptr;
+			//get the declared type of the nodes
+			for(int i =0; i < GetChildren(); i++)
+			{
+				if(decl == nullptr)
+				{
+					return nullptr;
+				}
+				decl = decl->GetType()->GetName()->GetDecl();
+			}
+				
+			node = decl->GetType();
+			return node;
+		}
+
+		int GetChildren()
+		{//get all children from nodes
+			return this->NumChildren() - 1;
 		}	
 
 	protected:
+	cSymbol * type;
 };

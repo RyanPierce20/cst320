@@ -29,7 +29,18 @@ class cParamListNode : public cAstNode
 		{
 			AddChild(multiple);
 		}
-		
+		//get the list of params and use index for the for loop to go through each param		
+		cExprNode * GetParams(int index)
+                {
+                        return static_cast<cExprNode *>(GetChild(index));
+                }
+		//get the number of params in the list
+		int GetNumParam()
+		{
+			return this->NumChildren();
+		}
+
+				
 		virtual string NodeType() { return string("params"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
 

@@ -37,7 +37,8 @@ class cFloatExprNode : public cExprNode
 
 		virtual string NodeType() { return string("float"); }
 	        virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
-		
+		virtual cSymbol * GetName() { return nullptr; }	
+		virtual bool IsFloat() { return true; }	
 	protected:
 		//made it a double because instructor prefered double over float
 		double m_value;

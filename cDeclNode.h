@@ -17,10 +17,12 @@ class cDeclNode : public cAstNode
 {
     public:
         cDeclNode() : cAstNode() {} 
-	
+
+	virtual int GetSize()	{ return 0;}
+	virtual string GetTypeName() = 0;	//the name of the decl
 	virtual cSymbol * GetName() = 0;
 	virtual cDeclNode *GetType() = 0;
-	virtual bool IsArray()	{ return false;}
+	virtual bool IsArray()	{ return false;}//almost every decl will need one of these
 	virtual bool IsStruct()	{ return false;}
 	virtual bool IsType()	{ return false;}
 	virtual bool IsFunc()	{ return false;}

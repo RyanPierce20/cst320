@@ -63,6 +63,9 @@ class cArrayDeclNode : public cDeclNode
 
 		virtual bool IsType() { return true; }
 		virtual bool IsArray() { return true; }
+		virtual string GetTypeName() { return type->GetName();}
+
 	protected:
 	int value;
+	cSymbol * type;
 };

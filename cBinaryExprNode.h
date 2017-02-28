@@ -33,6 +33,6 @@ class cBinaryExprNode : public cExprNode
 
 		virtual string NodeType() { return string("expr"); }
                 virtual void Visit(cVisitor *visitor) { visitor->Visit(this); }
-
+		virtual cSymbol * GetName() { return nullptr; }
 	protected:
 };	

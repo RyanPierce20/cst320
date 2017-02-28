@@ -57,5 +57,8 @@ class cStructDeclNode : public cDeclNode
 		
 		virtual bool IsType() { return true; }
 		virtual bool IsStruct() { return true; }
+		virtual string GetTypeName() { return type->GetName();}
+
 	protected:
+	cSymbol * type;
 };

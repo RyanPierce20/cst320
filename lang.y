@@ -127,15 +127,18 @@ array_decl: ARRAY TYPE_ID '[' INT_VAL ']' IDENTIFIER
 
 func_decl:  func_header ';'
                                 { $$ = $1;
+				  $1->InsertDecls(nullptr);
+				  $1->InsertStmts(nullptr);
 				  g_SymbolTable.DecreaseScope();}
         |   func_header  '{' decls stmts '}'
                                 { $$ = $1;
-				  $$->Insert($3);
-				  $$->Insert($4);
+				  $1->InsertDecls($3);
+				  $1->InsertStmts($4);
 				  g_SymbolTable.DecreaseScope();}
         |   func_header  '{' stmts '}'
                                 { $$ = $1;
-				  $$->Insert($3);
+				  $1->InsertStmts($3);
+				  $1->InsertDecls(nullptr);
 				  g_SymbolTable.DecreaseScope();}
 func_header: func_prefix paramsspec ')'
                                 { $$ = $1;

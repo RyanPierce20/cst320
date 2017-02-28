@@ -59,5 +59,7 @@ class cVarDeclNode : public cDeclNode
 		}
 		
 		virtual bool IsVar() { return true; }	
+		virtual string GetTypeName() { return type->GetName();}
 	protected:
+	cSymbol * type;
 };

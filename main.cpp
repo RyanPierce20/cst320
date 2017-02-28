@@ -68,12 +68,14 @@ int main(int argc, char **argv)
    
     result = yyparse();
     if (yyast_root != nullptr)
-    {
+    {	
+	semantics.VisitAllNodes(yyast_root);
+	result += semantics.NumErrors();
         if (result == 0)
         {
             output << yyast_root->ToString() << std::endl;
         } else {
-            output << yynerrs << " Errors in compile\n";
+            output << yynerrs + semantics.NumErrors()  << " Errors in compile\n";
         }
     }
 
@@ -86,6 +88,6 @@ int main(int argc, char **argv)
     // If these aren't done, you may get a segfault on program exit
     output.close();
     std::cout.rdbuf(cout_buf);
-
+	
     return result;
 }

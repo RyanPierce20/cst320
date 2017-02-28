@@ -25,6 +25,7 @@ void cVisitor::VisitAllChildren(cAstNode *node)
     }
 }
 
+void cVisitor::Visit(cBaseTypeNode * node)    { VisitAllChildren(node); }
 void cVisitor::Visit(cArrayDeclNode *node)    { VisitAllChildren(node); }
 void cVisitor::Visit(cFuncDeclNode *node)     { VisitAllChildren(node); }
 void cVisitor::Visit(cFuncExprNode *node)     { VisitAllChildren(node); }
